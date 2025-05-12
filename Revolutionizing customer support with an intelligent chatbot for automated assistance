@@ -1,0 +1,32 @@
+import pandas as pd
+
+# Simulated chatbot support session data
+chat_data = {
+    'Session_ID': [101, 102, 103, 104, 105, 106],
+    'User_Intent': ['Order Status', 'Technical Issue', 'Refund', 'Product Info', 'Complaint', 'Order Status'],
+    'Bot_Resolved': [True, False, True, True, False, True],
+    'Response_Time_Sec': [22, 130, 45, 30, 200, 25],
+    'User_Satisfaction_Score': [5, 2, 4, 5, 1, 5]  # 1 (low) to 5 (high)
+}
+
+# Create a DataFrame
+df = pd.DataFrame(chat_data)
+
+# Display basic info
+print("Chatbot Session Data:\n", df)
+
+# 📊 Average response time
+avg_response_time = df['Response_Time_Sec'].mean()
+print(f"\n📈 Average Response Time: {avg_response_time:.2f} seconds")
+
+# ✅ Bot resolution rate
+bot_success_rate = df['Bot_Resolved'].mean() * 100
+print(f"✅ Bot Resolution Success Rate: {bot_success_rate:.2f}%")
+
+# 😊 Average satisfaction score by intent
+satisfaction_by_intent = df.groupby('User_Intent')['User_Satisfaction_Score'].mean()
+print("\n😊 Average Satisfaction Score by Intent:\n", satisfaction_by_intent)
+
+# 🔎 Identify intents with lowest satisfaction
+lowest_satisfaction = satisfaction_by_intent.sort_values().head(1)
+print("\n🚨 Lowest Satisfaction Intent:\n", lowest_satisfaction)
